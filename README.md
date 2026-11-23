@@ -42,27 +42,130 @@ To create a sample customer dataset and perform data exploration, filtering, sor
 #Customer Data Exploration using Pandas
 
 #Step 1: Create a sample customer dataset
+import pandas as pd
+
+data = {
+ 
+    "Customer_ID": [101, 102, 103, 104, 105, 106, 107, 108],  
+    "Customer_Name": ["Anita", "Rajesh", "Priya", "Vikram", "Divya", "Manoj", "Sita", "Amit"],   
+    "Region": ["North", "South", "East", "West", "North", "South", "East", "West"],  
+    "Age": [25, 32, 41, 29, 35, 45, 28, 40],  
+    "Annual_Income": [55000, 72000, 61000, 48000, 85000, 90000, 64000, 58000],  
+    "Spending_Score": [78, 62, 45, 88, 92, 55, 70, 60],  
+    "Loyalty_Years": [2, 5, 4, 3, 6, 7, 3, 4]}  
+
 
 #Step 2: Convert to a Pandas DataFrame
 
+df = pd.DataFrame(data)  
+
+print("---- CUSTOMER DATASET ----")  
+
+print(df)  
+
+
 #Step 3: Basic exploration
+
+print("\nShape of Dataset:", df.shape)  
+
+print("Columns:", df.columns.tolist())  
+
+print("\n---- Dataset Info ----")  
+
+print(df.info())  
+
+print("\n---- Summary Statistics ----")   
+
+print(df.describe())  
+
 
 #Step 4: Display first and last few records
 
+print("\nFirst 3 Records:\n", df.head(3))  
+
+print("\nLast 3 Records:\n", df.tail(3))  
+
+
 #Step 5: Sort customers by Annual Income (descending)
+
+print("\nCustomers Sorted by Annual Income:\n",  
+
+      df.sort_values(by="Annual_Income", ascending=False))  
+
 
 #Step 6: Filter high-income customers (Income > 70000)
 
+print("\nHigh Income Customers (Income > 70000):\n",  
+
+      df[df["Annual_Income"] > 70000][["Customer_Name", "Annual_Income"]])  
+
+
 #Step 7: Group customers by Region and find average Income and Spending Score
+
+print("\nRegion-wise Average Income and Spending Score:")  
+
+print(df.groupby("Region")[["Annual_Income", "Spending_Score"]].mean())  
+
 
 #Step 8: Count number of customers in each Region
 
+print("\nCustomer Count per Region:")  
+
+print(df["Region"].value_counts())  
+
+
 #Step 9: Identify customer with maximum Spending Score
 
+max_spender = df.loc[df["Spending_Score"].idxmax()]  
+
+print("\nTop Spender Details:\n", max_spender)  
+
+
 #Step 10: Compute overall averages
+
+print("\nAverage Annual Income:", df["Annual_Income"].mean())  
+
+print("Average Spending Score:", df["Spending_Score"].mean())  
 
 
 ## Output
 
-## Result
+Shape of Dataset: (8, 7)  
+
+High Income Customers (Income > 70000):  
+
+  Customer_Name  Annual_Income  
+1 Rajesh            72000  
+4 Divya             85000    
+5 Manoj             90000  
+
+Region-wise Average Income and Spending Score:  
+ 
+        Annual_Income    Spending_Score  
+East            62500.0              57.5  
+North           70000.0              85.0  
+South           81000.0              58.5  
+West            53000.0              74.0  
+
+Customer Count per Region:  
+
+North      2  
+South      2  
+East       2  
+West       2  
+ 
+Top Spender Details:  
+
+Customer_ID         105  
+Customer_Name      Divya   
+Region             North   
+Age                   35   
+Annual_Income      85000   
+Spending_Score        92   
+Loyalty_Years          6   
+ 
+Average Annual Income: 66625.0  
+
+Average Spending Score: 68.75  
+## Result  
 The program successfully creates a customer dataset using Pandas and performs exploratory analysis, sorting, filtering, regional grouping, and summary statistics.
